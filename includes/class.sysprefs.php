@@ -72,10 +72,10 @@ class system_prefs {
                 return $default;  //return the value just inserted. 
             }
         }
-        if (empty($valuesys)) {
+        if (empty($valuesys)) {//if pref is not found and we don't have a default value to insert, then retun null. 
             return null;
         } else {
-            return $valuesys[0]["value"]; //value found. could be null if nothing exists.
+            return $valuesys[0]["pref_value"]; //value found. could be null if nothing exists.
         }
     }
 
@@ -86,8 +86,8 @@ class system_prefs {
      * @param string $value - preference value
      */
     public function updateSystemPref($pref, $value) {
-        $valuesys = $this->mysql->getSystemPreferences($pref); //query for pref
-        if (count($valuesys) > 0) {  //if we find the fref, update it with new value.
+        $valuesys = $this->mysql->getSystemPreferences($pref); //query for preferences
+        if (count($valuesys) > 0) {  //if we find the preferences, update it with new value.
             return $this->mysql->updateSystemPreferences($pref, $value);
         } else {  //otherwise insert a new value. 
             return $this->mysql->insertSystemPreferences($pref, $value);
